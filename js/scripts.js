@@ -467,7 +467,7 @@ ProjectNavigation = (function() {
       return;
     }
     this.animation = true;
-    if (Modernizr.mq('(max-width: 500px)')) {
+    if (Modernizr.mq('(max-width: 500px)') || Modernizr.mq('(max-height: 500px)')) {
       this.close_button.stop().animate({
         'right': 10
       }, {
@@ -493,7 +493,7 @@ ProjectNavigation = (function() {
       return;
     }
     this.animation = true;
-    if (Modernizr.mq('(max-width: 500px)')) {
+    if (Modernizr.mq('(max-width: 500px)') || Modernizr.mq('(max-height: 500px)')) {
       this.close_button.stop().animate({
         'right': -50
       }, {

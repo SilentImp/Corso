@@ -125,9 +125,11 @@ var Collection,
 Collection = (function() {
   function Collection() {
     this.move = bind(this.move, this);
+    this.reshape = bind(this.reshape, this);
+    this.recurrent = bind(this.recurrent, this);
     this.next = bind(this.next, this);
     this.prev = bind(this.prev, this);
-    var first, last;
+    var first, last, prelast, second;
     this.widget = $('.collection');
     if (this.widget.length === 0) {
       return;
@@ -136,6 +138,9 @@ Collection = (function() {
     this.prev_button = this.widget.find('.collection__prev');
     this.wrapper = this.widget.find('.collection__wrapper');
     this.screens = this.widget.find('.collection__screen');
+    this.book = this.widget.find('.collection__book');
+    this.delay = this.book.outerHeight();
+    this.time = 1500;
     this.pages = this.screens.length;
     this.page = 0;
     if (this.pages < 2) {
@@ -143,12 +148,25 @@ Collection = (function() {
       this.next_button.hide();
     } else {
       this.scrolling = false;
-      first = $(this.screens.get(0)).clone(true).addClass('landing__cloned');
-      last = $(this.screens.get(this.pages - 1)).clone(true).addClass('landing__cloned');
+      first = $(this.screens.get(0)).clone(true).addClass('collection__cloned');
+      second = $(this.screens.get(1)).clone(true).addClass('collection__cloned');
+      last = $(this.screens.get(this.pages - 1)).clone(true).addClass('collection__cloned');
+      prelast = $(this.screens.get(this.pages - 2)).clone(true).addClass('collection__cloned');
       this.wrapper.append(first);
+      this.wrapper.append(second);
       this.wrapper.prepend(last);
+      this.wrapper.prepend(prelast);
       this.wrapper.css({
-        'top': '-100%'
+        'top': '-' + 2 * this.delay + 'px'
+      });
+      this.screens = this.widget.find('.collection__screen');
+      this.current = $(this.screens.get(this.page + 2));
+      this.recurrent();
+      $('.collection__inner').css({
+        'opacity': .4
+      });
+      this.current.find('.collection__inner').css({
+        'opacity': 1
       });
       this.prev_button.on('click', this.prev);
       this.next_button.on('click', this.next);
@@ -170,6 +188,7 @@ Collection = (function() {
     }
     this.scrolling = true;
     this.page--;
+    this.recurrent();
     return this.move();
   };
 
@@ -179,28 +198,87 @@ Collection = (function() {
     }
     this.scrolling = true;
     this.page++;
+    this.recurrent();
     return this.move();
   };
 
+  Collection.prototype.recurrent = function() {
+    this.current.removeClass('collection__current');
+    this.current = $(this.screens.get(this.page + 2));
+    this.current.addClass('collection__current');
+    if (this.nexts) {
+      this.nexts.removeClass('collection__nexts');
+    }
+    this.nexts = this.current.next();
+    if (this.nexts) {
+      this.nexts.addClass('collection__nexts');
+    }
+    if (this.prevs) {
+      this.prevs.removeClass('collection__prevs');
+    }
+    this.prevs = this.current.prev();
+    if (this.prevs) {
+      return this.prevs.addClass('collection__prevs');
+    }
+  };
+
+  Collection.prototype.reshape = function() {
+    $('.collection__inner').velocity({
+      'properties': {
+        'opacity': .4
+      },
+      'options': {
+        'duration': this.time / 2
+      }
+    });
+    return this.current.find('.collection__inner').velocity({
+      'properties': {
+        'opacity': 1
+      },
+      'options': {
+        'duration': this.time / 2
+      }
+    });
+  };
+
   Collection.prototype.move = function() {
-    return this.wrapper.stop().animate({
-      'top': (this.page * (-100) - 100) + '%'
-    }, {
-      'duration': 250,
-      'complete': (function(_this) {
-        return function() {
-          if (_this.page === -1) {
-            _this.page = _this.pages - 1;
-          }
-          if (_this.page === _this.pages) {
-            _this.page = 0;
-          }
-          _this.wrapper.css({
-            'top': (_this.page * (-100) - 100) + '%'
-          });
-          return _this.scrolling = false;
-        };
-      })(this)
+    this.reshape();
+    return this.wrapper.velocity('stop').velocity({
+      'properties': {
+        'top': (this.page * (-this.delay) - 2 * this.delay) + 'px'
+      },
+      'options': {
+        'duration': this.time,
+        'easing': 'linear',
+        'complete': (function(_this) {
+          return function() {
+            var jump;
+            jump = false;
+            if (_this.page === -1) {
+              _this.page = _this.pages - 1;
+              jump = true;
+            }
+            if (_this.page === _this.pages) {
+              _this.page = 0;
+              jump = true;
+            }
+            _this.scrolling = false;
+            if (jump) {
+              _this.wrapper.velocity('stop').css({
+                'top': (_this.page * (-_this.delay) - 2 * _this.delay) + 'px'
+              });
+              _this.recurrent();
+              $('.collection__inner').css({
+                'opacity': .4
+              });
+              _this.current.find('.collection__inner').css({
+                'opacity': 1
+              });
+              return jump = false;
+            }
+          };
+        })(this)
+      }
     });
   };
 

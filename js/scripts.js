@@ -36,7 +36,7 @@ Contacts = (function() {
     if (this.contacts.length === 0) {
       return;
     }
-    this.map_open_button = $('.contacts__map-open');
+    this.map_open_button = $('.contacts__map');
     this.map_open_button.on('click', this.openMap);
   }
 

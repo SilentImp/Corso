@@ -1,0 +1,153 @@
+@import "../../helpers/helpers.scss";
+
+.contacts{
+  &__logotype{
+
+    position: fixed;
+    top: 85px;
+    left: 0;
+    right: 50%;
+    bottom: 187px;
+
+    background: url('../images/logotype-middle-orange.svg') 50% 0 no-repeat;
+    background-size: contain;
+
+    font-size: 0;
+    line-height: 0;
+    text-indent: -999px;
+    overflow: hidden;
+    }
+  &__information{
+    position: fixed;
+    bottom: 85px;
+    right: 75%;
+    margin-right: -220px;
+    z-index: 3;
+    }
+  &__address{
+    color: $purple;
+    text-transform: uppercase;
+    font-size: 22px;
+    line-height: 22px;
+    font-family: 'Bebas', sans-serif;
+    font-weight: bold;
+    margin: 0 0 20px;
+    }
+  &__tel,
+  &__email{
+    color: $grey;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 20px;
+    font-family: 'Bebas', sans-serif;
+    text-decoration: none;
+    }
+  &__map{
+    position: fixed;
+    left: 50%;
+    top: 85px;
+    bottom: 85px;
+    width: 400px;
+    background: url('../images/map_masked.jpg') 50% 0 no-repeat;
+    background-size: cover;
+    z-index: 1;
+    &-open{
+      position: absolute;
+      left: 100%;
+      bottom: 85px;
+
+      background: $purple;
+      color: $white;
+      margin-left: -30px;
+      white-space: nowrap;
+      text-decoration: none;
+      z-index: 3;
+      display: block;
+      padding: 2px 24px 0;
+      line-height: 28px;
+      font-style: 16px;
+      text-transform: uppercase;
+      font-family: 'Bebas', sans-serif;
+      font-weight: bold;
+      }
+    }
+  }
+
+@media screen and (min-width: 1300px) {
+  html body .contacts{
+    &__map{
+      width: auto;
+      right: 30px;
+      &-open{
+        margin: auto;
+        bottom: 30px;
+        left: 0;
+        right: 0;
+        width: 100px;
+        }
+      }
+    }
+  }
+
+
+@media screen and (max-width: 1050px) {
+  html body .contacts{
+    &__logotype{
+      right: 550px;
+      }
+    &__information{
+      left: 30px;
+      }
+    &__map{
+      left: auto;
+      right: 150px;
+      }
+    }
+  }
+
+@media screen and (max-width: 960px) {
+  html body .contacts{
+    &__logotype{
+      background-size: auto 100%;
+      background-position: 62% 50%;
+      top: 50px;
+      }
+    &__information{
+      left: auto;
+      right: 550px;
+      }
+    &__map{
+      top: 50px;
+      bottom: 190px;
+      }
+    }
+  }
+
+@media screen and (max-width: 650px) {
+  html body .contacts{
+    &__map{
+      top: 50px;
+      bottom: 122px;
+      left: 15%;
+      right: 0;
+      width: auto;
+      &-open{
+        margin: auto;
+        bottom: 30px;
+        left: 0;
+        right: 0;
+        width: 100px;
+        }
+      }
+    &__information{
+      right: auto;
+      left: 15%;
+      bottom: 30px;
+      }
+    &__logotype{
+      top: 50px;
+      width: 15%;
+      bottom: 122px;
+      }
+    }
+  }

@@ -19,12 +19,13 @@ var gulp = require('gulp')
     , gulpif = require('gulp-if')
     , dirs = {
       'source': {
-        'jade': './source/jade/**/*.jade'
+        'jade': ['./source/elements/**/*.jade','./source/pages/*.jade','./source/partials/*.jade']
+        , 'page': './source/pages/*.jade'
         , 'list': './source/list/index.jade'
         , 'copy': './source/copy/**/*'
         , 'coffee': './source/**/*.coffee'
         , 'js': './source/js/**/*.js'
-        , 'scss': './source/sass/**/*.scss'
+        , 'scss': './source/**/*.scss'
         , 'css': './source/css/*.css'
         , 'svg': './source/svg/**/*.svg'
         , 'images': './source/images/**/*'
@@ -107,7 +108,7 @@ gulp.task('fonts', function() {
 });
 
 gulp.task('html', function() {
-  return gulp.src(dirs.source.jade)
+  return gulp.src(dirs.source.page)
     .pipe(plumber())
     .pipe(jade({pretty: true}))
     .pipe(gulp.dest(dirs.build.html));
@@ -143,7 +144,7 @@ gulp.task('deploy', function () {
     .pipe(plumber())
     .pipe(deploy({
       cacheDir:   'gh-cache',
-      remoteUrl:  'git@github.com:SilentImp/botan.git'
+      remoteUrl:  'git@github.com:SilentImp/corso.git'
     }).on('error', function(){
       console.log('error', arguments);
     }));

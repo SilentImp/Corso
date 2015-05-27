@@ -1,0 +1,23 @@
+@import "../../helpers/helpers.scss";
+
+.marker{
+  &__title{
+    width: 200px;
+    height: 100px;
+    overflow: hidden;
+    margin: auto 20px;
+    text-decoration: none;
+    background: url('../images/logotype-marker.svg') 50% 50% no-repeat;
+    text-indent: -999px;
+    font-style: 0;
+    line-height: 0;
+    }
+  &__text{
+    font-family: 'Bebas', sans-serif;
+    text-transform: uppercase;
+    font-size:12px;
+    line-height: 16px;
+    color: $grey;
+    text-align: center;
+    }
+  }

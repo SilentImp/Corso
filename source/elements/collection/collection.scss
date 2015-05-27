@@ -1,0 +1,244 @@
+@import "../../helpers/helpers.scss";
+
+
+.collection{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  &__next,
+  &__prev{
+    @include clear-button;
+
+    position: fixed;
+    right: 50%;
+
+    margin: 0 20px 0 0;
+
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    transition: background-color .25s;
+    background-color: rgba($purple, .85);
+    background-position: 50% 50%;
+    background-size: 40px 40px;
+    z-index: 15;
+    &:hover{
+      background-color: rgba($purple, 1);
+      }
+    }
+  &__prev{
+    margin-bottom: -25px;
+    bottom: 100%;
+    background-image: url('../images/up.svg');
+    }
+  &__next{
+    margin-top: -25px;
+    top: 100%;
+    background-image: url('../images/down.svg');
+    }
+
+  &__wrapper{
+    position: absolute;
+    top: 0;
+    }
+  &__wrapper,
+  &__screen{
+    width: 100%;
+    height: 100%;
+    }
+
+  &__content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: 0;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    width: 75%;
+    display: block;
+    padding: 12.5%;
+    }
+
+  &__title{
+    color: $orange;
+    text-transform: uppercase;
+    font-size: 22px;
+    line-height: 22px;
+    font-family: 'Bebas', sans-serif;
+    font-weight: bold;
+    margin: 0 0 20px;
+    }
+
+  &__text{
+    color: $grey;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 20px;
+    font-family: 'Bebas', sans-serif;
+    }
+
+  &__right,
+  &__left{
+    width: 50%;
+    height: 100%;
+    float:left;
+    position: relative;
+    overflow: hidden;
+    }
+
+  &__right{
+    background-color: $white;
+    }
+
+  &__left{
+    background: linear-gradient(to bottom, #e74568 0%,#f16651 100%);
+    background-color: cover;
+    img{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      right: 0;
+      transform: translate(-50%, -50%);
+      margin: 0;
+      display: block;
+      min-width: 100%;
+      min-height: 100%;
+      }
+    }
+
+  &__book{
+    position: fixed;
+    top:50%;
+    right: 30px;
+    width: 62.5%;
+    overflow: hidden;
+
+    max-height: 95%;
+
+    transform: translate(0, -50%);
+
+    &:before{
+      content: "";
+      display: block;
+      margin: 80% 0 0;
+      }
+    }
+
+  &__logotype{
+    width: 39%;
+
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 10px;
+
+    background: url('../images/logotype-middle-purple.svg') 50% 50% no-repeat;
+    background-size: 100% auto;
+
+    overflow: hidden;
+    font-size: 0;
+    line-height: 0;
+    text-indent: -9999px;
+    z-index: 1;
+    }
+  }
+
+
+@media screen and (max-width: 960px) {
+  html body .collection{
+    &__logotype{
+      display: none;
+      }
+    &__book{
+      width: 80%;
+      left: 0;
+      right: 0;
+      margin: auto;
+      }
+    }
+  }
+
+@media screen and (max-width: 700px) {
+  html body .collection{
+    &__title{
+      font-size: 16px;
+      line-height: 16px;
+      margin: 0 0 16px;
+      }
+    &__text{
+      font-size: 12px;
+      line-height: 16px;
+      }
+    &__book{
+      width: 100%;
+      }
+    }
+  }
+
+@media screen and (max-width: 500px) {
+  html body .collection{
+    &__prev,
+    &__next{
+      display: none;
+      }
+    &__book{
+      height: 100%;
+      width: 100%;
+      max-height: none;
+      transform: none;
+      top: 0;
+      bottom: 0;
+      }
+    &__right{
+      line-height: 100vh;
+      }
+    &__content{
+      display: inline-block;
+      vertical-align: middle;
+      padding: 40px 10px 40px;
+      position: static;
+      }
+    &__title{
+      font-size: 12px;
+      line-height: 14px;
+      margin: 0 0 14px;
+      }
+    &__text{
+      font-size: 10px;
+      line-height: 14px;
+      }
+    }
+  }
+
+
+@media screen and (min-width: 1500px) {
+  html body .collection{
+    &__title{
+      font-size: 28px;
+      line-height: 28px;
+      margin: 0 0 28px;
+      }
+    &__text{
+      font-size: 24px;
+      line-height: 28px;
+      }
+    }
+  }
+
+
+@media screen and (min-width: 2000px) {
+  html body .collection{
+    &__title{
+      font-size: 36px;
+      line-height: 36px;
+      margin: 0 0 36px;
+      }
+    &__text{
+      font-size: 28px;
+      line-height: 36px;
+      }
+    }
+  }

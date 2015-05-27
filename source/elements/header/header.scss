@@ -1,0 +1,32 @@
+@import "../../helpers/helpers.scss";
+
+.header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  &__fb{
+    position: absolute;
+    top: 0;
+    right: 30px;
+
+    height: 30px;
+    width: 35px;
+
+    transition: background-color .25s;
+    background: $orange url('../images/fb.svg') 50% 50% no-repeat;
+    &:hover{
+      background-color: darken($orange, 15%);
+      }
+    }
+  }
+
+@media screen and (max-width: 500px) {
+  html body .header{
+    &__fb{
+      right: 10px;
+      }
+    }
+  }

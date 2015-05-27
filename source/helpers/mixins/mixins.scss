@@ -1,0 +1,10 @@
+@mixin clear-button{
+  background: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-style: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}

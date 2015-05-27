@@ -119,6 +119,99 @@ $(document).ready(function() {
   return new Brands;
 });
 
+var Collection,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+Collection = (function() {
+  function Collection() {
+    this.move = bind(this.move, this);
+    this.next = bind(this.next, this);
+    this.prev = bind(this.prev, this);
+    var first, last;
+    this.widget = $('.collection');
+    if (this.widget.length === 0) {
+      return;
+    }
+    this.next_button = this.widget.find('.collection__next');
+    this.prev_button = this.widget.find('.collection__prev');
+    this.wrapper = this.widget.find('.collection__wrapper');
+    this.screens = this.widget.find('.collection__screen');
+    this.pages = this.screens.length;
+    this.page = 0;
+    if (this.pages < 2) {
+      this.prev_button.hide();
+      this.next_button.hide();
+    } else {
+      this.scrolling = false;
+      first = $(this.screens.get(0)).clone(true).addClass('landing__cloned');
+      last = $(this.screens.get(this.pages - 1)).clone(true).addClass('landing__cloned');
+      this.wrapper.append(first);
+      this.wrapper.prepend(last);
+      this.wrapper.css({
+        'top': '-100%'
+      });
+      this.prev_button.on('click', this.prev);
+      this.next_button.on('click', this.next);
+      key('down', this.next);
+      key('up', this.prev);
+      this.touch = $('html').hasClass('touch');
+      this.toucher = null;
+      if (this.touch) {
+        this.toucher = new Hammer(this.widget[0]);
+        this.toucher.on('swipedown', this.next);
+        this.toucher.on('swipeup', this.prev);
+      }
+    }
+  }
+
+  Collection.prototype.prev = function() {
+    if (this.scrolling) {
+      return;
+    }
+    this.scrolling = true;
+    this.page--;
+    return this.move();
+  };
+
+  Collection.prototype.next = function() {
+    if (this.scrolling) {
+      return;
+    }
+    this.scrolling = true;
+    this.page++;
+    return this.move();
+  };
+
+  Collection.prototype.move = function() {
+    return this.wrapper.stop().animate({
+      'top': (this.page * (-100) - 100) + '%'
+    }, {
+      'duration': 250,
+      'complete': (function(_this) {
+        return function() {
+          if (_this.page === -1) {
+            _this.page = _this.pages - 1;
+          }
+          if (_this.page === _this.pages) {
+            _this.page = 0;
+          }
+          _this.wrapper.css({
+            'top': (_this.page * (-100) - 100) + '%'
+          });
+          return _this.scrolling = false;
+        };
+      })(this)
+    });
+  };
+
+  return Collection;
+
+})();
+
+$(document).ready(function() {
+  return new Collection;
+});
+
 var Contacts,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 

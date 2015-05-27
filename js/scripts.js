@@ -162,11 +162,11 @@ Collection = (function() {
       this.screens = this.widget.find('.collection__screen');
       this.current = $(this.screens.get(this.page + 2));
       this.recurrent();
-      $('.collection__inner').css({
+      $('.collection__screen:not(.collection__current) .collection__inner').css({
         'opacity': .4,
         'transform': 'scale(0.8)'
       });
-      this.current.find('.collection__inner').css({
+      $('.collection__screen.collection__current .collection__inner').css({
         'opacity': 1,
         'transform': 'scale(1)'
       });
@@ -225,7 +225,7 @@ Collection = (function() {
   };
 
   Collection.prototype.reshape = function() {
-    $('.collection__inner').velocity({
+    $('.collection__screen:not(.collection__current) .collection__inner').velocity({
       'properties': {
         'opacity': 0.4,
         'scale': 0.8
@@ -234,7 +234,7 @@ Collection = (function() {
         'duration': this.time / 2
       }
     });
-    return this.current.find('.collection__inner').velocity({
+    return $('.collection__screen.collection__current .collection__inner').velocity({
       'properties': {
         'opacity': 1,
         'scale': 1
@@ -272,7 +272,7 @@ Collection = (function() {
                 'top': (_this.page * (-_this.delay) - 2 * _this.delay) + 'px'
               });
               _this.recurrent();
-              $('.collection__inner').css({
+              $('.collection__screen:not(.collection__current) .collection__inner').css({
                 'opacity': .4,
                 'transform': 'scale(0.8)'
               });

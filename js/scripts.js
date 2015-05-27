@@ -26,6 +26,99 @@ $(document).ready(function() {
   return new About;
 });
 
+var Brands,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+Brands = (function() {
+  function Brands() {
+    this.move = bind(this.move, this);
+    this.next = bind(this.next, this);
+    this.prev = bind(this.prev, this);
+    var first, last;
+    this.widget = $('.brands');
+    if (this.widget.length === 0) {
+      return;
+    }
+    this.next_button = this.widget.find('.brands__next');
+    this.prev_button = this.widget.find('.brands__prev');
+    this.wrapper = this.widget.find('.brands__wrapper');
+    this.screens = this.widget.find('.brands__screen');
+    this.pages = this.screens.length;
+    this.page = 0;
+    if (this.pages < 2) {
+      this.prev_button.hide();
+      this.next_button.hide();
+    } else {
+      this.scrolling = false;
+      first = $(this.screens.get(0)).clone(true).addClass('landing__cloned');
+      last = $(this.screens.get(this.pages - 1)).clone(true).addClass('landing__cloned');
+      this.wrapper.append(first);
+      this.wrapper.prepend(last);
+      this.wrapper.css({
+        'top': '-100%'
+      });
+      this.prev_button.on('click', this.prev);
+      this.next_button.on('click', this.next);
+      key('right', this.next);
+      key('left', this.prev);
+      this.touch = $('html').hasClass('touch');
+      this.toucher = null;
+      if (this.touch) {
+        this.toucher = new Hammer(this.widget[0]);
+        this.toucher.on('swipeleft', this.next);
+        this.toucher.on('swiperight', this.prev);
+      }
+    }
+  }
+
+  Brands.prototype.prev = function() {
+    if (this.scrolling) {
+      return;
+    }
+    this.scrolling = true;
+    this.page--;
+    return this.move();
+  };
+
+  Brands.prototype.next = function() {
+    if (this.scrolling) {
+      return;
+    }
+    this.scrolling = true;
+    this.page++;
+    return this.move();
+  };
+
+  Brands.prototype.move = function() {
+    return this.wrapper.stop().animate({
+      'top': (this.page * (-100) - 100) + '%'
+    }, {
+      'duration': 250,
+      'complete': (function(_this) {
+        return function() {
+          if (_this.page === -1) {
+            _this.page = _this.pages - 1;
+          }
+          if (_this.page === _this.pages) {
+            _this.page = 0;
+          }
+          _this.wrapper.css({
+            'top': (_this.page * (-100) - 100) + '%'
+          });
+          return _this.scrolling = false;
+        };
+      })(this)
+    });
+  };
+
+  return Brands;
+
+})();
+
+$(document).ready(function() {
+  return new Brands;
+});
+
 var Contacts,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
@@ -84,7 +177,7 @@ Landing = (function() {
       this.wrapper.append(first);
       this.wrapper.prepend(last);
       this.wrapper.css({
-        'left': '-100vw'
+        'left': '-100%'
       });
       this.prev_button.on('click', this.prev);
       this.next_button.on('click', this.next);
@@ -120,7 +213,7 @@ Landing = (function() {
 
   Landing.prototype.move = function() {
     return this.wrapper.stop().animate({
-      'left': (this.page * (-100) - 100) + 'vw'
+      'left': (this.page * (-100) - 100) + '%'
     }, {
       'duration': 250,
       'complete': (function(_this) {
@@ -132,7 +225,7 @@ Landing = (function() {
             _this.page = 0;
           }
           _this.wrapper.css({
-            'left': (_this.page * (-100) - 100) + 'vw'
+            'left': (_this.page * (-100) - 100) + '%'
           });
           return _this.scrolling = false;
         };

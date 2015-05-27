@@ -44,6 +44,14 @@
     position: absolute;
     top: 0;
     }
+
+  &__screen{
+/*     transform-origin: 25% 50%;
+opacity: 0.25;
+transform: scale(.25); */
+    }
+
+
   &__wrapper,
   &__screen{
     width: 100%;
@@ -112,7 +120,6 @@
     top:50%;
     right: 30px;
     width: 62.5%;
-    overflow: hidden;
 
     max-height: 95%;
 
@@ -122,6 +129,74 @@
       content: "";
       display: block;
       margin: 80% 0 0;
+      }
+    }
+
+  &__nexts{
+/*     opacity: .4;
+transform: scale(.5); */
+    .collection__left:before{
+      content: "";
+      display: block;
+      width: 150px;
+      height: 150px;
+      background: $purple;
+      border-radius: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      z-index: 10;
+      }
+
+  }
+
+  &__prevs{
+/*     opacity: .4;
+transform: scale(.5); */
+    .collection__left:before{
+      content: "";
+      display: block;
+      width: 150px;
+      height: 150px;
+      background: $black;
+      border-radius: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      z-index: 10;
+      }
+
+  }
+
+  &__inner{
+    width: 100%;
+    height: 100%;
+    transform-origin: 25% 50%;
+    }
+
+  &__current{
+/*     opacity: 1;
+transform: scale(1); */
+    .collection__left:before{
+      content: "";
+      display: block;
+      width: 150px;
+      height: 150px;
+      background: $orange;
+      border-radius: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      z-index: 10;
       }
     }
 
@@ -151,7 +226,7 @@
       display: none;
       }
     &__book{
-      width: 80%;
+      width: 100%;
       left: 0;
       right: 0;
       margin: auto;
@@ -159,39 +234,37 @@
     }
   }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 600px) {
   html body .collection{
-    &__title{
-      font-size: 16px;
-      line-height: 16px;
-      margin: 0 0 16px;
-      }
-    &__text{
-      font-size: 12px;
-      line-height: 16px;
-      }
     &__book{
-      width: 100%;
+      height: 100%;
+      max-height: none;
       }
-    }
-  }
+    &__left{
+      width: 100%;
+      float:none;
+      position: absolute;
+      img{
+        width: auto;
+        height: 100%;
+        }
+      }
+    &__right{
+      background: none;
+      width: 100%;
+      float:none;
+      position: absolute;
+      }
+    &__content{
+      background: rgba($white, .5);
+      padding: 10px;
+      }
 
-@media screen and (max-width: 500px) {
-  html body .collection{
     &__prev,
     &__next{
       display: none;
       }
 
-    &__title{
-      font-size: 12px;
-      line-height: 14px;
-      margin: 0 0 14px;
-      }
-    &__text{
-      font-size: 10px;
-      line-height: 14px;
-      }
     }
   }
 

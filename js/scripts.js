@@ -163,10 +163,12 @@ Collection = (function() {
       this.current = $(this.screens.get(this.page + 2));
       this.recurrent();
       $('.collection__inner').css({
-        'opacity': .4
+        'opacity': .4,
+        'transform': 'scale(0.8)'
       });
       this.current.find('.collection__inner').css({
-        'opacity': 1
+        'opacity': 1,
+        'transform': 'scale(1)'
       });
       this.prev_button.on('click', this.prev);
       this.next_button.on('click', this.next);
@@ -225,7 +227,8 @@ Collection = (function() {
   Collection.prototype.reshape = function() {
     $('.collection__inner').velocity({
       'properties': {
-        'opacity': .4
+        'opacity': 0.4,
+        'scale': 0.8
       },
       'options': {
         'duration': this.time / 2
@@ -233,7 +236,8 @@ Collection = (function() {
     });
     return this.current.find('.collection__inner').velocity({
       'properties': {
-        'opacity': 1
+        'opacity': 1,
+        'scale': 1
       },
       'options': {
         'duration': this.time / 2
@@ -269,10 +273,12 @@ Collection = (function() {
               });
               _this.recurrent();
               $('.collection__inner').css({
-                'opacity': .4
+                'opacity': .4,
+                'transform': 'scale(0.8)'
               });
               _this.current.find('.collection__inner').css({
-                'opacity': 1
+                'opacity': 1,
+                'transform': 'scale(1)'
               });
               return jump = false;
             }

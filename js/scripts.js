@@ -3,78 +3,19 @@ var About,
 
 About = (function() {
   function About() {
-    this.close = bind(this.close, this);
-    this.open = bind(this.open, this);
+    this.openMap = bind(this.openMap, this);
     this.map_open_button = $('.about__address');
     if (this.map_open_button.length === 0) {
       return;
     }
-    this.animation = false;
-    this.map_close_button = $('.about__close');
-    this.map_open_button.on('click', this.open);
-    this.map_close_button.on('click', this.close);
-    this.map_wrapper = $('.about__map-wrapper');
-    this.map = $('.about__map');
-    this.location = new google.maps.LatLng(50.46065, 30.510867);
-    this.gm = new google.maps.Map(this.map.get(0), {
-      center: this.location,
-      zoom: 16,
-      mapTypeControl: false,
-      panControl: true,
-      zoomControl: true,
-      scaleControl: true,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-    this.infowindow = new google.maps.InfoWindow({
-      content: '<h2 class="marker__title">Via del Corso 88</h2><p class="marker__text">г. Киев, ул. Воздвиженская 21</p>'
-    });
-    this.marker = new google.maps.Marker({
-      position: this.location,
-      map: this.gm,
-      title: 'Via del Corso 88'
-    });
-    this.infowindow.open(this.gm, this.marker);
-    google.maps.event.addListener(this.marker, 'click', (function(_this) {
-      return function() {
-        return _this.infowindow.open(_this.gm, _this.marker);
-      };
-    })(this));
+    this.map_open_button.on('click', this.openMap);
   }
 
-  About.prototype.open = function(event) {
+  About.prototype.openMap = function(event) {
     if (event) {
       event.preventDefault();
     }
-    if (this.animation) {
-      return;
-    }
-    this.animation = true;
-    return this.map_wrapper.stop().animate({
-      'top': 0
-    }, {
-      'duration': 250,
-      'complete': (function(_this) {
-        return function() {
-          return _this.animation = false;
-        };
-      })(this)
-    });
-  };
-
-  About.prototype.close = function() {
-    return this.map_wrapper.stop().animate({
-      'top': '100%'
-    }, {
-      'duration': 250,
-      'complete': (function(_this) {
-        return function() {
-          _this.animation = false;
-          return _this.map_wrapper.css({
-            'top': '-100vh'
-          });
-        };
-      })(this)
-    });
+    return $(document).trigger('openMap');
   };
 
   return About;
@@ -83,6 +24,35 @@ About = (function() {
 
 $(document).ready(function() {
   return new About;
+});
+
+var Contacts,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+Contacts = (function() {
+  function Contacts() {
+    this.openMap = bind(this.openMap, this);
+    this.contacts = $('.contacts');
+    if (this.contacts.length === 0) {
+      return;
+    }
+    this.map_open_button = $('.contacts__map-open');
+    this.map_open_button.on('click', this.openMap);
+  }
+
+  Contacts.prototype.openMap = function(event) {
+    if (event) {
+      event.preventDefault();
+    }
+    return $(document).trigger('openMap');
+  };
+
+  return Contacts;
+
+})();
+
+$(document).ready(function() {
+  return new Contacts;
 });
 
 var Landing,
@@ -176,6 +146,98 @@ Landing = (function() {
 
 $(document).ready(function() {
   return new Landing;
+});
+
+var Map,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+Map = (function() {
+  function Map() {
+    this.close = bind(this.close, this);
+    this.open = bind(this.open, this);
+    this.map = $('.map');
+    if (this.map.length === 0) {
+      return;
+    }
+    this.animation = false;
+    this.map_wrapper = $('.map__wrapper');
+    this.map_close_button = $('.map__close');
+    this.map_close_button.on('click', this.close);
+    $(document).on('openMap', this.open);
+    this.location = new google.maps.LatLng(50.46065, 30.510867);
+    this.gm = new google.maps.Map(this.map.get(0), {
+      center: this.location,
+      zoom: 16,
+      mapTypeControl: false,
+      panControl: true,
+      zoomControl: true,
+      scaleControl: true,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    this.infowindow = new google.maps.InfoWindow({
+      content: '<h2 class="marker__title">Via del Corso 88</h2><p class="marker__text">г. Киев, ул. Воздвиженская 21</p>'
+    });
+    this.marker = new google.maps.Marker({
+      position: this.location,
+      map: this.gm,
+      title: 'Via del Corso 88'
+    });
+    this.infowindow.open(this.gm, this.marker);
+    google.maps.event.addListener(this.marker, 'click', (function(_this) {
+      return function() {
+        return _this.infowindow.open(_this.gm, _this.marker);
+      };
+    })(this));
+  }
+
+  Map.prototype.open = function(event) {
+    if (event) {
+      event.preventDefault();
+    }
+    if (this.animation) {
+      return;
+    }
+    this.animation = true;
+    return this.map_wrapper.stop().animate({
+      'top': 0
+    }, {
+      'duration': 250,
+      'complete': (function(_this) {
+        return function() {
+          return _this.animation = false;
+        };
+      })(this)
+    });
+  };
+
+  Map.prototype.close = function(event) {
+    if (event) {
+      event.preventDefault();
+    }
+    if (this.animation) {
+      return;
+    }
+    return this.map_wrapper.stop().animate({
+      'top': '100%'
+    }, {
+      'duration': 250,
+      'complete': (function(_this) {
+        return function() {
+          _this.animation = false;
+          return _this.map_wrapper.css({
+            'top': '-100vh'
+          });
+        };
+      })(this)
+    });
+  };
+
+  return Map;
+
+})();
+
+$(document).ready(function() {
+  return new Map;
 });
 
 var ProjectNavigation,

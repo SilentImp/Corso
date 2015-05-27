@@ -59,14 +59,14 @@ Brands = (function() {
       });
       this.prev_button.on('click', this.prev);
       this.next_button.on('click', this.next);
-      key('right', this.next);
-      key('left', this.prev);
+      key('down', this.next);
+      key('up', this.prev);
       this.touch = $('html').hasClass('touch');
       this.toucher = null;
       if (this.touch) {
         this.toucher = new Hammer(this.widget[0]);
-        this.toucher.on('swipeleft', this.next);
-        this.toucher.on('swiperight', this.prev);
+        this.toucher.on('swipedown', this.next);
+        this.toucher.on('swipeup', this.prev);
       }
     }
   }

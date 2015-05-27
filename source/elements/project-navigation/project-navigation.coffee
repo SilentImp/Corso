@@ -32,7 +32,7 @@ class ProjectNavigation
     if @animation
       return
     @animation = true
-    if Modernizr.mq('(max-width: 500px)')
+    if Modernizr.mq('(max-width: 500px)') || Modernizr.mq('(max-height: 500px)')
       @close_button.stop().animate
           'right': 10
         ,
@@ -52,7 +52,7 @@ class ProjectNavigation
     if @animation
       return
     @animation = true
-    if Modernizr.mq('(max-width: 500px)')
+    if Modernizr.mq('(max-width: 500px)') || Modernizr.mq('(max-height: 500px)')
       @close_button.stop().animate
           'right': -50
         ,

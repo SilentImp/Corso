@@ -109,6 +109,25 @@
     }
   }
 
+@media screen and (max-height: 500px) {
+  html body .project-navigation{
+    width: 100vw;
+    left: 0;
+    right: 0;
+    top: -100vh;
+    &__close{
+      position: fixed;
+      top: 10px;
+      right: -50px;
+      left: auto;
+      bottom: auto;
+      width: 40px;
+      height: 40px;
+      background-size: 40px 40px;
+      }
+    }
+  }
+
 @media screen and (max-width: 500px) {
   html body .project-navigation{
     width: 100vw;

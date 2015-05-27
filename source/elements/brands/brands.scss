@@ -89,8 +89,6 @@
     }
 
   &__left{
-    background: linear-gradient(to bottom, #e74568 0%,#f16651 100%);
-    background-color: cover;
     img{
       position: absolute;
       top: 50%;
@@ -114,7 +112,18 @@
     max-height: 95%;
 
     transform: translate(0, -50%);
-
+    &:after{
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      background: linear-gradient(to bottom, #e74568 0%,#f16651 100%);
+      background-color: cover;
+      z-index: -1;
+      }
     &:before{
       content: "";
       display: block;

@@ -61,43 +61,68 @@ class Landing
 
   move: =>
 
+
+    props_before =
+      'scale': 0.9
+    options_before =
+      'duration': 350
+
     props_after =
       'scale': 1
-
     options_after =
       'duration': 350
-      'complete': =>
+    @screens.velocity("stop").velocity(props_before, options_before).velocity(props_after, options_after)
 
+    options =
+      'duration': 800
+      'complete': =>
         if @page == -1
           @page = @pages-1
-
         if @page == @pages
           @page = 0
-
         @wrapper.css
           'left': (@page*(-100)-100)+'%'
 
         @scrolling = false
 
-    options_middle =
-      'duration': 800
-      'complete': =>
-        @screens.velocity("stop").velocity(props_after, options_after)
-
-    props_middle =
+    props =
       'left': (@page*(-100)-100)+'%'
 
-    props_before =
-      'scale': .75
+    @wrapper.velocity("stop").velocity(props, options)
 
-    options_before =
-      'duration': 350
-      'complete': =>
-        @wrapper.velocity("stop").velocity(props_middle, options_middle)
-
-    @screens.velocity("stop").velocity(props_before, options_before)
-
-
+    # props_after =
+    #   'scale': 1
+    #
+    # options_after =
+    #   'duration': 350
+    #   'complete': =>
+    #
+    #     if @page == -1
+    #       @page = @pages-1
+    #
+    #     if @page == @pages
+    #       @page = 0
+    #
+    #     @wrapper.css
+    #       'left': (@page*(-100)-100)+'%'
+    #
+    #     @scrolling = false
+    #
+    # options_middle =
+    #   'duration': 800
+    #   'complete': =>
+    #     @screens.velocity("stop").velocity(props_after, options_after)
+    #
+    # props_middle =
+    #   'left': (@page*(-100)-100)+'%'
+    #
+    # props_before =
+    #   'scale': .75
+    #
+    # options_before =
+    #   'duration': 350
+    #   'complete': =>
+    #     @wrapper.velocity("stop").velocity(props_middle, options_middle)
 
 
 $(document).ready ->

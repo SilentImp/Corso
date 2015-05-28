@@ -2,11 +2,74 @@
 
 
 .collection{
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+
+  &__screen{
+    position: fixed;
+    height: 80%;
+
+    top: 10%;
+    right: 30px;
+    left: 39%;
+
+    margin: 0 auto;
+
+    opacity: 0;
+
+    transform-origin: 25% 50%;
+    }
+
+  &__title{
+    color: $orange;
+    text-transform: uppercase;
+    font-family: 'Bebas', sans-serif;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 22px;
+    margin: 0 0 20px;
+    }
+
+  &__text{
+    color: $grey;
+    text-transform: uppercase;
+    font-family: 'Bebas', sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+    }
+
+  &__content{
+    position: absolute;
+    transform: translate(0, -50%);
+    top: 50%;
+    left: 0;
+    right: 0;
+    padding: 0 12.5%;
+    }
+
+  &__left{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    overflow: hidden;
+
+    img{
+      height: 100%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+      }
+    }
+  &__right{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+
+    background-color: $white;
+    }
 
   &__next,
   &__prev{
@@ -31,173 +94,13 @@
     }
   &__prev{
     margin-bottom: -25px;
-    bottom: 100%;
+    bottom: 90%;
     background-image: url('../images/up.svg');
     }
   &__next{
     margin-top: -25px;
-    top: 100%;
+    top: 90%;
     background-image: url('../images/down.svg');
-    }
-
-  &__wrapper{
-    position: absolute;
-    top: 0;
-    }
-
-  &__screen{
-/*     transform-origin: 25% 50%;
-opacity: 0.25;
-transform: scale(.25); */
-    }
-
-
-  &__wrapper,
-  &__screen{
-    width: 100%;
-    height: 100%;
-    }
-
-  &__content{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    right: 0;
-    transform: translate(-50%, -50%);
-    margin: 0;
-    width: 75%;
-    display: block;
-    padding: 12.5%;
-    }
-
-  &__title{
-    color: $orange;
-    text-transform: uppercase;
-    font-size: 22px;
-    line-height: 22px;
-    font-family: 'Bebas', sans-serif;
-    font-weight: bold;
-    margin: 0 0 20px;
-    }
-
-  &__text{
-    color: $grey;
-    text-transform: uppercase;
-    font-size: 16px;
-    line-height: 20px;
-    font-family: 'Bebas', sans-serif;
-    }
-
-  &__right,
-  &__left{
-    width: 50%;
-    height: 100%;
-    float:left;
-    position: relative;
-    overflow: hidden;
-    }
-
-  &__right{
-    background-color: $white;
-    }
-
-  &__left{
-    img{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      right: 0;
-      transform: translate(-50%, -50%);
-      margin: 0;
-      display: block;
-      height: 100%;
-      max-height: 100%;
-      }
-    }
-
-  &__book{
-    position: fixed;
-    top:50%;
-    right: 30px;
-    width: 62.5%;
-
-    max-height: 95%;
-
-    transform: translate(0, -50%);
-
-    &:before{
-      content: "";
-      display: block;
-      margin: 80% 0 0;
-      }
-    }
-
-  &__nexts{
-/*     opacity: .4;
-transform: scale(.5); */
-    .collection__left:before{
-      content: "";
-      display: block;
-      width: 150px;
-      height: 150px;
-      background: $purple;
-      border-radius: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      margin: auto;
-      z-index: 10;
-      }
-
-  }
-
-  &__prevs{
-/*     opacity: .4;
-transform: scale(.5); */
-    .collection__left:before{
-      content: "";
-      display: block;
-      width: 150px;
-      height: 150px;
-      background: $black;
-      border-radius: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      margin: auto;
-      z-index: 10;
-      }
-
-  }
-
-  &__inner{
-    width: 100%;
-    height: 100%;
-    transform-origin: 25% 50%;
-    }
-
-  &__current{
-/*     opacity: 1;
-transform: scale(1); */
-    .collection__left:before{
-      content: "";
-      display: block;
-      width: 150px;
-      height: 150px;
-      background: $orange;
-      border-radius: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      margin: auto;
-      z-index: 10;
-      }
     }
 
   &__logotype{
@@ -217,83 +120,27 @@ transform: scale(1); */
     text-indent: -9999px;
     z-index: 1;
     }
-  }
 
-
-@media screen and (max-width: 960px) {
-  html body .collection{
-    &__logotype{
-      display: none;
-      }
-    &__book{
+  &_mobile{
+    .collection__right,
+    .collection__left{
       width: 100%;
       left: 0;
-      right: 0;
-      margin: auto;
-      }
-    }
-  }
-
-@media screen and (max-width: 600px) {
-  html body .collection{
-    &__book{
-      height: 100%;
-      max-height: none;
-      }
-    &__left{
-      width: 100%;
-      float:none;
-      position: absolute;
-      img{
-        width: auto;
-        height: 100%;
-        }
-      }
-    &__right{
       background: none;
-      width: 100%;
-      float:none;
-      position: absolute;
       }
-    &__content{
+    .collection__content{
       background: rgba($white, .5);
       padding: 10px;
+      width: auto;
+      left: 50%;
+      right: auto;
+      transform: translate(-50%, -50%);
       }
-
-    &__prev,
-    &__next{
-      display: none;
+    .collection__text{
+      color: rgba($black, .5);
       }
-
-    }
-  }
-
-
-@media screen and (min-width: 1500px) {
-  html body .collection{
-    &__title{
-      font-size: 28px;
-      line-height: 28px;
-      margin: 0 0 28px;
-      }
-    &__text{
-      font-size: 24px;
-      line-height: 28px;
-      }
-    }
-  }
-
-
-@media screen and (min-width: 2000px) {
-  html body .collection{
-    &__title{
-      font-size: 36px;
-      line-height: 36px;
-      margin: 0 0 36px;
-      }
-    &__text{
-      font-size: 28px;
-      line-height: 36px;
+    .collection__screen{
+      transform-origin: 50% 50%;
       }
     }
   }

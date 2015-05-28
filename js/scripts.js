@@ -543,6 +543,7 @@ Map = (function() {
   function Map() {
     this.close = bind(this.close, this);
     this.open = bind(this.open, this);
+    this.center = bind(this.center, this);
     this.map = $('.map');
     if (this.map.length === 0) {
       return;
@@ -576,7 +577,12 @@ Map = (function() {
         return _this.infowindow.open(_this.gm, _this.marker);
       };
     })(this));
+    $(window).on('resize', this.center);
   }
+
+  Map.prototype.center = function() {
+    return this.gm.setCenter(this.location);
+  };
 
   Map.prototype.open = function(event) {
     if (event) {

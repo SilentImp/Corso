@@ -137,10 +137,10 @@ Collection = (function() {
     }
     this.next_button = this.widget.find('.collection__next');
     this.prev_button = this.widget.find('.collection__prev');
+    this.buttons = this.widget.find('button');
     this.wrapper = this.widget.find('.collection__wrapper');
     this.screens = this.widget.find('.collection__screen');
-    this.book = this.widget.find('.collection__book');
-    this.delay = this.book.outerHeight();
+    this.logotype = this.widget.find('.collection__logotype');
     this.time = 500;
     this.pages = this.screens.length;
     this.page = 0;
@@ -149,8 +149,6 @@ Collection = (function() {
       this.next_button.hide();
     } else {
       this.scrolling = false;
-      $(window).on('resize', this.recount);
-      this.recount();
       first = $(this.screens.get(0)).clone(true).addClass('collection__cloned');
       second = $(this.screens.get(1)).clone(true).addClass('collection__cloned');
       last = $(this.screens.get(this.pages - 1)).clone(true).addClass('collection__cloned');
@@ -162,7 +160,8 @@ Collection = (function() {
       this.screens = this.widget.find('.collection__screen');
       this.current = $(this.screens.get(this.page + 2));
       this.recurrent();
-      this.pos();
+      $(window).on('resize', this.recount);
+      this.recount();
       this.prev_button.on('click', this.prev);
       this.next_button.on('click', this.next);
       key('down', this.next);
@@ -178,12 +177,57 @@ Collection = (function() {
   }
 
   Collection.prototype.recount = function() {
+    var screen_offset, screen_width;
+    this.vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     this.vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    this.delay = this.book.outerHeight();
-    return $('.collection__screen').css({
+    screen_width = 1.0125 * this.vh;
+    screen_offset = this.vw - screen_width - 30;
+    $('.collection__screen').css({
       'height': 0.8 * this.vh,
       'width': 1.0125 * this.vh
     });
+    this.pos();
+    if (screen_width < .75 * this.vw) {
+      this.logotype.css({
+        display: 'block',
+        width: screen_offset
+      });
+      this.widget.removeClass('collection_mobile');
+      this.screens.css({
+        left: screen_offset,
+        right: 'auto'
+      });
+      this.buttons.css({
+        left: screen_offset + screen_width / 2 - 60
+      });
+    }
+    if (screen_width >= .75 * this.vw) {
+      this.logotype.css({
+        display: 'none'
+      });
+      this.widget.removeClass('collection_mobile');
+      this.screens.css({
+        left: 0,
+        right: 0
+      });
+      this.buttons.css({
+        left: .5 * this.vw - 60
+      });
+    }
+    if (screen_width > this.vw) {
+      this.logotype.css({
+        display: 'none'
+      });
+      this.widget.addClass('collection_mobile');
+      this.screens.css({
+        left: 0,
+        right: 0,
+        width: '100%'
+      });
+      return this.buttons.css({
+        left: .5 * this.vw - 20
+      });
+    }
   };
 
   Collection.prototype.prev = function() {
@@ -352,8 +396,9 @@ Collection = (function() {
           if (jump) {
             return window.setTimeout(function() {
               _this.recurrent();
-              return _this.pos();
-            }, 100);
+              _this.pos();
+              return _this.scrolling = false;
+            }, 0);
           }
         };
       })(this)

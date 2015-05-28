@@ -34,6 +34,7 @@ Brands = (function() {
     this.move = bind(this.move, this);
     this.next = bind(this.next, this);
     this.prev = bind(this.prev, this);
+    this.recount = bind(this.recount, this);
     var first, last;
     this.widget = $('.brands');
     if (this.widget.length === 0) {
@@ -43,6 +44,7 @@ Brands = (function() {
     this.prev_button = this.widget.find('.brands__prev');
     this.wrapper = this.widget.find('.brands__wrapper');
     this.screens = this.widget.find('.brands__screen');
+    this.book = this.widget.find('.brands__book');
     this.pages = this.screens.length;
     this.page = 0;
     if (this.pages < 2) {
@@ -57,6 +59,8 @@ Brands = (function() {
       this.wrapper.css({
         'top': '-100%'
       });
+      $(window).on('resize', this.recount);
+      this.recount();
       this.prev_button.on('click', this.prev);
       this.next_button.on('click', this.next);
       key('down', this.next);
@@ -70,6 +74,20 @@ Brands = (function() {
       }
     }
   }
+
+  Brands.prototype.recount = function() {
+    var height;
+    this.vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    height = this.book.outerHeight();
+    this.prev_button.css({
+      top: 'auto',
+      bottom: height + (this.vh - height) / 2 - 24
+    });
+    return this.next_button.css({
+      bottom: 'auto',
+      top: height + (this.vh - height) / 2 - 24
+    });
+  };
 
   Brands.prototype.prev = function() {
     if (this.scrolling) {

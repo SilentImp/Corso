@@ -22,6 +22,27 @@ class ProjectNavigation
       @toucher = new Hammer document.body
       @toucher.on 'swipedown', @toggle
 
+    $(window).on 'resize', @recount
+    @recount()
+
+  recount: =>
+    if (Modernizr.mq('(max-width: 605px)') || Modernizr.mq('(max-height: 500px)'))
+      if @open
+        props =
+          'right': '10px'
+        options =
+          'duration': 250
+        @close_button.velocity("stop").velocity(props, options)
+      else
+        props =
+          'right': '-50px'
+        options =
+          'duration': 250
+        @close_button.velocity("stop").velocity(props, options)
+    else
+      @close_button.removeAttr 'style'
+
+
   toggle: =>
     if @open
       @close()
@@ -33,7 +54,7 @@ class ProjectNavigation
       return
     @animation = true
 
-    if Modernizr.mq('(max-width: 500px)') || Modernizr.mq('(max-height: 500px)')
+    if Modernizr.mq('(max-width: 605px)') || Modernizr.mq('(max-height: 500px)')
       props =
         'right': 10
       options =
@@ -54,7 +75,7 @@ class ProjectNavigation
     if @animation
       return
     @animation = true
-    if Modernizr.mq('(max-width: 500px)') || Modernizr.mq('(max-height: 500px)')
+    if Modernizr.mq('(max-width: 605px)') || Modernizr.mq('(max-height: 500px)')
       props =
         'right': -50
       options =

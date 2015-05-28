@@ -3,10 +3,10 @@
 .project-navigation{
   position: fixed;
   right: 85px;
-  top: -100vh;
+  top: -100%;
 
   width: 520px;
-  height: 100vh;
+  height: 100%;
 
   background-color: $orange;
   z-index: 103;
@@ -37,6 +37,7 @@
 
     transform: scale(1);
     transition: background-color .25s, transform .25s;
+    
     background-image: url('../images/close.svg');
     background-color: rgba($white, .85);
     background-position: 50% 50%;
@@ -51,21 +52,29 @@
     top: 50%;
     left: 0;
     right: 0;
-    margin: -250px auto 0;
-    width: 300px;
+    margin: -200px auto 0;
+    width: 250px;
     }
 
   &__link{
     border-top: 1px solid $white;
-    line-height: 100px;
-    height: 100px;
+    line-height: 80px;
+    height: 80px;
     white-space: nowrap;
     display: block;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
     color: $white;
-    font-size: 30px;
+    font-size: 20px;
+    span{
+      display: inline-block;
+      transform: scale(1);
+      transition: transform .25s;
+      }
+    &:hover span{
+      transform: scale(1.2);
+      }
     &:first-child{
       border-top-style: none;
       }
@@ -114,6 +123,23 @@
     }
   }
 
+
+@media screen and (max-height: 350px) {
+  html body .project-navigation{
+    &__links{
+      margin: -80px auto 0;
+      width: 100px;
+      }
+    &__link{
+      font-size: 12px;
+      line-height: 32px;
+      height: 32px;
+      }
+    }
+  }
+
+
+
 @media screen and (max-height: 500px) {
   html body .project-navigation{
     width: 100%;
@@ -133,7 +159,7 @@
     }
   }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 605px) {
   html body .project-navigation{
     width: 100%;
     left: 0;

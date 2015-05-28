@@ -686,6 +686,7 @@ ProjectNavigation = (function() {
     this.close = bind(this.close, this);
     this.open = bind(this.open, this);
     this.toggle = bind(this.toggle, this);
+    this.recount = bind(this.recount, this);
     this.menu = $('.project-navigation');
     if (this.menu.length === 0) {
       return;
@@ -704,7 +705,34 @@ ProjectNavigation = (function() {
       this.toucher = new Hammer(document.body);
       this.toucher.on('swipedown', this.toggle);
     }
+    $(window).on('resize', this.recount);
+    this.recount();
   }
+
+  ProjectNavigation.prototype.recount = function() {
+    var options, props;
+    if (Modernizr.mq('(max-width: 605px)') || Modernizr.mq('(max-height: 500px)')) {
+      if (this.open) {
+        props = {
+          'right': '10px'
+        };
+        options = {
+          'duration': 250
+        };
+        return this.close_button.velocity("stop").velocity(props, options);
+      } else {
+        props = {
+          'right': '-50px'
+        };
+        options = {
+          'duration': 250
+        };
+        return this.close_button.velocity("stop").velocity(props, options);
+      }
+    } else {
+      return this.close_button.removeAttr('style');
+    }
+  };
 
   ProjectNavigation.prototype.toggle = function() {
     if (this.open) {
@@ -720,7 +748,7 @@ ProjectNavigation = (function() {
       return;
     }
     this.animation = true;
-    if (Modernizr.mq('(max-width: 500px)') || Modernizr.mq('(max-height: 500px)')) {
+    if (Modernizr.mq('(max-width: 605px)') || Modernizr.mq('(max-height: 500px)')) {
       props = {
         'right': 10
       };
@@ -751,7 +779,7 @@ ProjectNavigation = (function() {
       return;
     }
     this.animation = true;
-    if (Modernizr.mq('(max-width: 500px)') || Modernizr.mq('(max-height: 500px)')) {
+    if (Modernizr.mq('(max-width: 605px)') || Modernizr.mq('(max-height: 500px)')) {
       props = {
         'right': -50
       };

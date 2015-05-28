@@ -73,22 +73,24 @@ class Brands
     @move()
 
   move: =>
-    @wrapper.stop().animate
-        'top': (@page*(-100)-100)+'%'
-      ,
-        'duration': 250
-        'complete': =>
+    props =
+      'top': (@page*(-100)-100)+'%'
+    options =
+      'duration': 250
+      'complete': =>
 
-          if @page == -1
-            @page = @pages-1
+        if @page == -1
+          @page = @pages-1
 
-          if @page == @pages
-            @page = 0
+        if @page == @pages
+          @page = 0
 
-          @wrapper.css
-            'top': (@page*(-100)-100)+'%'
+        @wrapper.css
+          'top': (@page*(-100)-100)+'%'
 
-          @scrolling = false
+        @scrolling = false
+
+    @wrapper.velocity("stop").velocity(props, options)
 
 
 $(document).ready ->

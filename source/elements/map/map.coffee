@@ -46,26 +46,30 @@ class Map
     if @animation
       return
     @animation = true
-    @map_wrapper.stop().animate
-        'top': 0
-      ,
-        'duration': 250
-        'complete': =>
-          @animation = false
+    props =
+      'top': 0
+    options =
+      'duration': 250
+      'complete': =>
+        @animation = false
 
+    @map_wrapper.velocity("stop").velocity(props, options)
+    
   close: (event)=>
     if event
       event.preventDefault()
     if @animation
       return
-    @map_wrapper.stop().animate
-        'top': '100%'
-      ,
-        'duration': 250
-        'complete': =>
-          @animation = false
-          @map_wrapper.css
-            'top': '-100vh'
+    props =
+      'top': '100%'
+    options =
+      'duration': 250
+      'complete': =>
+        @animation = false
+        @map_wrapper.css
+          'top': '-100%'
+
+    @map_wrapper.velocity("stop").velocity(props, options)
 
 
 $(document).ready ->

@@ -32,43 +32,46 @@ class ProjectNavigation
     if @animation
       return
     @animation = true
+
     if Modernizr.mq('(max-width: 500px)') || Modernizr.mq('(max-height: 500px)')
-      @close_button.stop().animate
-          'right': 10
-        ,
-          'duration': 250
-
-    @menu.stop().animate
-        'top': 0
-      ,
+      props =
+        'right': 10
+      options =
         'duration': 250
-        'complete': =>
-          @lightbox.show()
-          @animation = false
-          @open = true
+      @close_button.velocity("stop").velocity(props, options)
 
+    props =
+      'top': 0
+    options =
+      'duration': 250
+      'complete': =>
+        @lightbox.show()
+        @animation = false
+        @open = true
+    @menu.velocity("stop").velocity(props, options)
 
   close: =>
     if @animation
       return
     @animation = true
     if Modernizr.mq('(max-width: 500px)') || Modernizr.mq('(max-height: 500px)')
-      @close_button.stop().animate
-          'right': -50
-        ,
-          'duration': 250
-    @menu.stop().animate
-        'top': '100vh'
-      ,
+      props =
+        'right': -50
+      options =
         'duration': 250
-        'complete': =>
-          @lightbox.hide()
-          @animation = false
-          @open = false
-          @menu.css
-            'top': '-100vh'
+      @close_button.velocity("stop").velocity(props, options)
 
-
+    props =
+      'top': '100%'
+    options =
+      'duration': 250
+      'complete': =>
+        @lightbox.hide()
+        @animation = false
+        @open = false
+        @menu.css
+          'top': '-100%'
+    @menu.velocity("stop").velocity(props, options)
 
 $(document).ready ->
   new ProjectNavigation

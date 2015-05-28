@@ -529,12 +529,22 @@ Landing = (function() {
   };
 
   Landing.prototype.move = function() {
-    var options_after, options_before, options_middle, props_after, props_before, props_middle;
+    var options, options_after, options_before, props, props_after, props_before;
+    props_before = {
+      'scale': 0.9
+    };
+    options_before = {
+      'duration': 350
+    };
     props_after = {
       'scale': 1
     };
     options_after = {
-      'duration': 350,
+      'duration': 350
+    };
+    this.screens.velocity("stop").velocity(props_before, options_before).velocity(props_after, options_after);
+    options = {
+      'duration': 800,
       'complete': (function(_this) {
         return function() {
           if (_this.page === -1) {
@@ -550,29 +560,10 @@ Landing = (function() {
         };
       })(this)
     };
-    options_middle = {
-      'duration': 800,
-      'complete': (function(_this) {
-        return function() {
-          return _this.screens.velocity("stop").velocity(props_after, options_after);
-        };
-      })(this)
-    };
-    props_middle = {
+    props = {
       'left': (this.page * (-100) - 100) + '%'
     };
-    props_before = {
-      'scale': .75
-    };
-    options_before = {
-      'duration': 350,
-      'complete': (function(_this) {
-        return function() {
-          return _this.wrapper.velocity("stop").velocity(props_middle, options_middle);
-        };
-      })(this)
-    };
-    return this.screens.velocity("stop").velocity(props_before, options_before);
+    return this.wrapper.velocity("stop").velocity(props, options);
   };
 
   return Landing;

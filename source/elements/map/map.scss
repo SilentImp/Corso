@@ -19,13 +19,15 @@
     top: 20px;
     right: 20px;
     z-index: 250;
-    transition: background-color .25s;
+    transform: scale(1);
+    transition: background-color .25s, transform .25s;
     background-image: url('../images/close.svg');
     background-color: rgba($white, .85);
     background-position: 50% 50%;
     background-size: 40px 40px;
     &:hover{
       background-color: rgba($white, 1);
+      transform: scale(1.2);
       }
     }
   }

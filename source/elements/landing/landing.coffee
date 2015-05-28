@@ -25,6 +25,8 @@ class Landing
         'left': '-100%'
       });
 
+      @screens = $ '.landing__screen'
+
       @prev_button.on 'click', @prev
       @next_button.on 'click', @next
 
@@ -58,22 +60,44 @@ class Landing
     @move()
 
   move: =>
-    @wrapper.stop().animate
-        'left': (@page*(-100)-100)+'%'
-      ,
-        'duration': 250
-        'complete': =>
 
-          if @page == -1
-            @page = @pages-1
+    props_after =
+      'scale': 1
 
-          if @page == @pages
-            @page = 0
+    options_after =
+      'duration': 350
+      'complete': =>
 
-          @wrapper.css
-            'left': (@page*(-100)-100)+'%'
+        if @page == -1
+          @page = @pages-1
 
-          @scrolling = false
+        if @page == @pages
+          @page = 0
+
+        @wrapper.css
+          'left': (@page*(-100)-100)+'%'
+
+        @scrolling = false
+
+    options_middle =
+      'duration': 800
+      'complete': =>
+        @screens.velocity("stop").velocity(props_after, options_after)
+
+    props_middle =
+      'left': (@page*(-100)-100)+'%'
+
+    props_before =
+      'scale': .75
+
+    options_before =
+      'duration': 350
+      'complete': =>
+        @wrapper.velocity("stop").velocity(props_middle, options_middle)
+
+    @screens.velocity("stop").velocity(props_before, options_before)
+
+
 
 
 $(document).ready ->

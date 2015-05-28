@@ -35,13 +35,15 @@
     top: -40px;
     right: -40px;
 
-    transition: background-color .25s;
+    transform: scale(1);
+    transition: background-color .25s, transform .25s;
     background-image: url('../images/close.svg');
     background-color: rgba($white, .85);
     background-position: 50% 50%;
     background-size: 40px 40px;
     &:hover{
       background-color: rgba($white, 1);
+      transform: scale(1.2);
       }
     }
   &__links{
@@ -49,13 +51,14 @@
     top: 50%;
     left: 0;
     right: 0;
-    margin: -258px auto 0;
+    margin: -250px auto 0;
     width: 300px;
     }
+
   &__link{
     border-top: 1px solid $white;
-    line-height: 128px;
-    height: 128px;
+    line-height: 100px;
+    height: 100px;
     white-space: nowrap;
     display: block;
     text-align: center;
@@ -81,9 +84,11 @@
     position: absolute;
     top: 0;
     right: 85px;
-    transition: background-color .25s;
+    transform: scale(1);
+    transition: background-color .25s, transform .25s;
     &:hover{
       background-color: darken($orange, 15%);
+      transform: scale(1.2);
       }
     }
   }
@@ -98,7 +103,7 @@
       background-size: 20px 20px;
       }
     &__links{
-      margin: -130px auto 0;
+      margin: -162px auto 0;
       width: 150px;
       }
     &__link{
@@ -111,10 +116,10 @@
 
 @media screen and (max-height: 500px) {
   html body .project-navigation{
-    width: 100vw;
+    width: 100%;
     left: 0;
     right: 0;
-    top: -100vh;
+    top: -100%;
     &__close{
       position: fixed;
       top: 10px;
@@ -130,10 +135,10 @@
 
 @media screen and (max-width: 500px) {
   html body .project-navigation{
-    width: 100vw;
+    width: 100%;
     left: 0;
     right: 0;
-    top: -100vh;
+    top: -100%;
     &__open{
       right: 55px;
       }

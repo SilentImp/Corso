@@ -9,6 +9,7 @@ class Brands
     @prev_button = @widget.find '.brands__prev'
     @wrapper = @widget.find '.brands__wrapper'
     @screens = @widget.find '.brands__screen'
+    @book = @widget.find '.brands__book'
 
     @pages = @screens.length;
     @page = 0
@@ -26,6 +27,9 @@ class Brands
         'top': '-100%'
       });
 
+      $(window).on 'resize', @recount
+      @recount()
+
       @prev_button.on 'click', @prev
       @next_button.on 'click', @next
 
@@ -38,6 +42,18 @@ class Brands
         @toucher = new Hammer(@widget[0])
         @toucher.on 'swipedown', @next
         @toucher.on 'swipeup', @prev
+
+
+  recount: =>
+    @vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+    height = @book.outerHeight()
+    @prev_button.css
+      top: 'auto'
+      bottom: height + (@vh-height)/2 - 24
+    @next_button.css
+      bottom: 'auto'
+      top: height + (@vh-height)/2 - 24
+
 
   prev: =>
     if @scrolling

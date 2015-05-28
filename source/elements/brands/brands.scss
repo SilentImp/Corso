@@ -12,30 +12,32 @@
     @include clear-button;
 
     position: fixed;
-    right: 50%;
+    right: 31.25%;
 
-    margin: 0 20px 0 0;
+    margin: 0 50px 0 0;
 
     width: 40px;
     height: 40px;
     overflow: hidden;
-    transition: background-color .25s;
+
+    transform: scale(1);
+    transition: background-color .25s, transform .25s;
+
     background-color: rgba($purple, .85);
     background-position: 50% 50%;
     background-size: 40px 40px;
     z-index: 15;
     &:hover{
       background-color: rgba($purple, 1);
+      transform: scale(1.2);
       }
     }
   &__prev{
-    margin-bottom: -25px;
-    bottom: 100%;
+    bottom: 90%;
     background-image: url('../images/up.svg');
     }
   &__next{
-    margin-top: -25px;
-    top: 100%;
+    top:90%;
     background-image: url('../images/down.svg');
     }
 
@@ -109,7 +111,7 @@
     width: 62.5%;
     overflow: hidden;
 
-    max-height: 95%;
+    max-height: 80%;
 
     transform: translate(0, -50%);
     &:after{
@@ -155,6 +157,22 @@
   html body .brands{
     &__logotype{
       display: none;
+      }
+    &__next{
+      position: fixed;
+      top: auto;
+      bottom: 5%;
+
+      left: 50%;
+      margin: 0 0 0 -20px;
+      }
+    &__prev{
+
+      bottom: auto;
+      top: 5%;
+
+      left: 50%;
+      margin: 0 0 0 -20px;
       }
     &__book{
       width: 80%;

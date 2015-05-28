@@ -108,9 +108,11 @@ Brands = (function() {
   };
 
   Brands.prototype.move = function() {
-    return this.wrapper.stop().animate({
+    var options, props;
+    props = {
       'top': (this.page * (-100) - 100) + '%'
-    }, {
+    };
+    options = {
       'duration': 250,
       'complete': (function(_this) {
         return function() {
@@ -126,7 +128,8 @@ Brands = (function() {
           return _this.scrolling = false;
         };
       })(this)
-    });
+    };
+    return this.wrapper.velocity("stop").velocity(props, options);
   };
 
   return Brands;
@@ -629,6 +632,7 @@ Map = (function() {
   };
 
   Map.prototype.open = function(event) {
+    var options, props;
     if (event) {
       event.preventDefault();
     }
@@ -636,38 +640,43 @@ Map = (function() {
       return;
     }
     this.animation = true;
-    return this.map_wrapper.stop().animate({
+    props = {
       'top': 0
-    }, {
+    };
+    options = {
       'duration': 250,
       'complete': (function(_this) {
         return function() {
           return _this.animation = false;
         };
       })(this)
-    });
+    };
+    return this.map_wrapper.velocity("stop").velocity(props, options);
   };
 
   Map.prototype.close = function(event) {
+    var options, props;
     if (event) {
       event.preventDefault();
     }
     if (this.animation) {
       return;
     }
-    return this.map_wrapper.stop().animate({
+    props = {
       'top': '100%'
-    }, {
+    };
+    options = {
       'duration': 250,
       'complete': (function(_this) {
         return function() {
           _this.animation = false;
           return _this.map_wrapper.css({
-            'top': '-100vh'
+            'top': '-100%'
           });
         };
       })(this)
-    });
+    };
+    return this.map_wrapper.velocity("stop").velocity(props, options);
   };
 
   return Map;
@@ -715,20 +724,24 @@ ProjectNavigation = (function() {
   };
 
   ProjectNavigation.prototype.open = function() {
+    var options, props;
     if (this.animation) {
       return;
     }
     this.animation = true;
     if (Modernizr.mq('(max-width: 500px)') || Modernizr.mq('(max-height: 500px)')) {
-      this.close_button.stop().animate({
+      props = {
         'right': 10
-      }, {
+      };
+      options = {
         'duration': 250
-      });
+      };
+      this.close_button.velocity("stop").velocity(props, options);
     }
-    return this.menu.stop().animate({
+    props = {
       'top': 0
-    }, {
+    };
+    options = {
       'duration': 250,
       'complete': (function(_this) {
         return function() {
@@ -737,24 +750,29 @@ ProjectNavigation = (function() {
           return _this.open = true;
         };
       })(this)
-    });
+    };
+    return this.menu.velocity("stop").velocity(props, options);
   };
 
   ProjectNavigation.prototype.close = function() {
+    var options, props;
     if (this.animation) {
       return;
     }
     this.animation = true;
     if (Modernizr.mq('(max-width: 500px)') || Modernizr.mq('(max-height: 500px)')) {
-      this.close_button.stop().animate({
+      props = {
         'right': -50
-      }, {
+      };
+      options = {
         'duration': 250
-      });
+      };
+      this.close_button.velocity("stop").velocity(props, options);
     }
-    return this.menu.stop().animate({
-      'top': '100vh'
-    }, {
+    props = {
+      'top': '100%'
+    };
+    options = {
       'duration': 250,
       'complete': (function(_this) {
         return function() {
@@ -762,11 +780,12 @@ ProjectNavigation = (function() {
           _this.animation = false;
           _this.open = false;
           return _this.menu.css({
-            'top': '-100vh'
+            'top': '-100%'
           });
         };
       })(this)
-    });
+    };
+    return this.menu.velocity("stop").velocity(props, options);
   };
 
   return ProjectNavigation;

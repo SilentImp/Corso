@@ -35,6 +35,11 @@ class Map
     google.maps.event.addListener @marker, 'click', =>
       @infowindow.open @gm, @marker
 
+    $(window).on 'resize', @center
+
+  center: =>
+    @gm.setCenter @location
+
   open: (event)=>
     if event
       event.preventDefault()

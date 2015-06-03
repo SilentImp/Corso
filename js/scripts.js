@@ -404,7 +404,6 @@ Collection = (function() {
       'complete': (function(_this) {
         return function() {
           var jump;
-          _this.scrolling = false;
           jump = false;
           if (_this.page === -1) {
             _this.page = _this.pages - 1;
@@ -418,8 +417,14 @@ Collection = (function() {
             return window.setTimeout(function() {
               _this.recurrent();
               _this.pos();
+              return window.setTimeout(function() {
+                return _this.scrolling = false;
+              }, 50);
+            }, 50);
+          } else {
+            return window.setTimeout(function() {
               return _this.scrolling = false;
-            }, 0);
+            }, 50);
           }
         };
       })(this)

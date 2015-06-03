@@ -262,7 +262,6 @@ class Collection
     options =
       'duration': @time
       'complete': =>
-        @scrolling = false
         jump = false
 
         if @page == -1
@@ -277,8 +276,14 @@ class Collection
           window.setTimeout(=>
             @recurrent()
             @pos()
+            window.setTimeout(=>
+              @scrolling = false
+            ,50)
+          , 50)
+        else
+          window.setTimeout(=>
             @scrolling = false
-          , 0)
+          ,50)
 
 
     @current.velocity("stop").velocity(props, options)

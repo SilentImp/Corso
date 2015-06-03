@@ -3,7 +3,6 @@ var gulp = require('gulp')
     , jade = require('gulp-jade')
     , coffee = require('gulp-coffee')
     , sass = require('gulp-sass')
-    , watch = require('gulp-watch')
     , imagemin = require('gulp-imagemin')
     , plumber = require('gulp-plumber')
     , del = require('del')
@@ -150,17 +149,6 @@ gulp.task('deploy', function () {
     }));
 });
 
-// gulp.task('watch', function() {
-//   watch('source/**/*.{scss}', function() {
-//     gulp.start('css');
-//     });
-//   watch('source/**/*.{jade}', function() {
-//     gulp.start('html');
-//     });
-//   watch('source/**/*.{coffee}', function() {
-//     gulp.start('js');
-//     });
-// });
 
 gulp.task('watch', function () {
   gulp.watch([dirs.source.scss, dirs.source.css], ['css']);
@@ -168,4 +156,4 @@ gulp.task('watch', function () {
   gulp.watch(dirs.source.coffee, ['js']);
 });
 
-gulp.task('default', ['html', 'css', 'js', 'list', 'images', 'svg']);
+gulp.task('default', ['fonts', 'html', 'css', 'js', 'images', 'svg']);

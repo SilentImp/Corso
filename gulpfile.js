@@ -16,6 +16,8 @@ var gulp = require('gulp')
     , path = require('path')
     , iconfont = require('gulp-iconfont')
     , gulpif = require('gulp-if')
+    , rename = require("gulp-rename")
+    , serve = require('gulp-serve')
     , dirs = {
       'source': {
         'jade': ['./source/elements/**/*.jade','./source/pages/*.jade','./source/partials/*.jade']
@@ -110,6 +112,12 @@ gulp.task('html', function() {
   return gulp.src(dirs.source.page)
     .pipe(plumber())
     .pipe(jade({pretty: true}))
+    .pipe(rename(function (path) {
+      if (path.basename != 'index') {
+          path.dirname += "/" + path.basename;
+          path.basename = "index";
+      }
+    }))
     .pipe(gulp.dest(dirs.build.html));
 });
 
@@ -157,3 +165,8 @@ gulp.task('watch', function () {
 });
 
 gulp.task('default', ['fonts', 'html', 'css', 'js', 'images', 'svg']);
+
+
+gulp.task('serve', serve('build'));
+
+gulp.task('sw', ['watch', 'serve']);

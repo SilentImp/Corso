@@ -62,8 +62,8 @@
     margin: auto;
 
     color: $white;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 18px;
     text-transform: uppercase;
     white-space: normal;
     }
@@ -92,11 +92,15 @@
     &_first{
       background-image: url('../images/bg-1.jpg');
       }
+    &_two{
+      background-image: url('../images/bg-1.jpg');
+      }
     &_last{
       background-image: url('../images/bg-2.jpg');
       }
     }
   }
+
 
 
 @media screen and (max-width: 630px) {

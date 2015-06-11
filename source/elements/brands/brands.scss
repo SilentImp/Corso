@@ -150,6 +150,26 @@
     text-indent: -9999px;
     z-index: 1;
     }
+
+  &__screen.violanti .brands__left img {
+    //max-height: 50%;
+  }
+  &__screen.liis .brands__left img {
+    max-height: 30%;
+  }
+  &__screen.ptow .brands__left img {
+    max-width: 30%;
+  }
+  &__screen.seventy .brands__left img {
+    max-width: 30%;
+  }
+  &__screen.shaftjeans .brands__left img {
+    max-width: 30%;
+  }
+  &__screen.kangra .brands__left img {
+    max-width: 30%;
+  }
+
   }
 
 

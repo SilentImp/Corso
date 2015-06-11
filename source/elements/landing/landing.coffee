@@ -40,6 +40,21 @@ class Landing
         @toucher.on 'swipeleft', @next
         @toucher.on 'swiperight', @prev
 
+    if $('html').hasClass('no-backgroundsize')
+      $(window).on 'resize', @images
+      @images()
+
+  images: (event)=>
+    for screen in $('.landing__screen')
+      $(screen).getBackgroundImageSizeCover @reimg
+
+  reimg: (w, h, ml, mt, wrapper)=>
+    wrapper.find('.bgsc').css
+      'margin-top': mt+'px'
+      'margin-left': ml+'px'
+      'width': w
+      'height': h
+
 
 
   prev: =>

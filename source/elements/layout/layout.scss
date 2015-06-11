@@ -7,5 +7,13 @@ html{
     position: relative;
     font-family: 'PF Din', sans-serif;
     overflow: hidden;
+    .bgsc{
+      z-index: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      }
   }
 }

@@ -1,15 +1,91 @@
+(function( $ ){
+        $.fn.getBackgroundImageSizeCover = function(callback) {
+            this.each(function() {
+                var wrapper = $(this)
+                div_height = wrapper.height();
+                div_width = wrapper.width();
+                bg_imge_str = wrapper.css('background-image').replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+                console.log(bg_imge_str);
+
+                if(bg_imge_str == 'none'){
+                  image_object = wrapper.find('.bgsc').get(0);
+                  if(image_object.complete){
+                    go();
+                  }
+                  return;
+                }
+
+                wrapper.css('background-image', 'none');
+
+                image_object = new Image();
+                image_object.src = bg_imge_str;
+                image_object.className = 'bgsc';
+                $(image_object).on('load', go);
+
+                wrapper.append(image_object);
+
+                if(image_object.complete){
+                  go();
+                }
+
+                function go(event){
+
+                    var ratio1 = image_object.width / image_object.height
+                        , ratio2 = div_width / div_height
+                        , toH = div_height
+                        , toW = div_width
+                        , marginLeft = 0
+                        , marginTop = 0
+                        , targetH = 0
+                        , targetW = 0;
+
+                    if(ratio1 < ratio2){
+                      targetW = toW;
+                      targetH = targetW / ratio1;
+                      marginTop = (toH - targetH) / 2;
+                    }else{
+                      targetH = toH;
+                      targetW = targetH * ratio1;
+                      marginLeft = (toW - targetW) / 2;
+                    }
+
+                    callback(Math.round(targetW), Math.round(targetH), Math.round(marginLeft), Math.round(marginTop), wrapper);
+                }
+            });
+        };
+    })( jQuery );
+
 var About,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 About = (function() {
   function About() {
     this.openMap = bind(this.openMap, this);
+    this.reimg = bind(this.reimg, this);
+    this.images = bind(this.images, this);
     this.map_open_button = $('.about__address');
     if (this.map_open_button.length === 0) {
       return;
     }
     this.map_open_button.on('click', this.openMap);
+    if ($('html').hasClass('backgroundsize')) {
+      $(window).on('resize', this.images);
+      this.images();
+    }
   }
+
+  About.prototype.images = function(event) {
+    return $('.about__logotype').getBackgroundImageSizeCover(this.reimg);
+  };
+
+  About.prototype.reimg = function(w, h, ml, mt, wrapper) {
+    return wrapper.find('.bgsc').css({
+      'margin-top': mt + 'px',
+      'margin-left': ml + 'px',
+      'width': w,
+      'height': h
+    });
+  };
 
   About.prototype.openMap = function(event) {
     if (event) {
@@ -446,13 +522,31 @@ var Contacts,
 Contacts = (function() {
   function Contacts() {
     this.openMap = bind(this.openMap, this);
+    this.reimg = bind(this.reimg, this);
+    this.images = bind(this.images, this);
     this.contacts = $('.contacts');
     if (this.contacts.length === 0) {
       return;
     }
     this.map_open_button = $('.contacts__map');
     this.map_open_button.on('click', this.openMap);
+    if ($('html').hasClass('backgroundsize')) {
+      $(window).on('resize', this.images);
+      this.images();
+    }
   }
+
+  Contacts.prototype.images = function(event) {
+    return $('.contacts__map').getBackgroundImageSizeCover(this.reimg);
+  };
+
+  Contacts.prototype.reimg = function(w, h, ml, mt, wrapper) {
+    return wrapper.find('.bgsc').css({
+      'margin-left': ml + 'px',
+      'width': w,
+      'height': h
+    });
+  };
 
   Contacts.prototype.openMap = function(event) {
     if (event) {
@@ -477,6 +571,8 @@ Landing = (function() {
     this.move = bind(this.move, this);
     this.next = bind(this.next, this);
     this.prev = bind(this.prev, this);
+    this.reimg = bind(this.reimg, this);
+    this.images = bind(this.images, this);
     var first, last;
     this.widget = $('.landing');
     if (this.widget.length === 0) {
@@ -513,7 +609,31 @@ Landing = (function() {
         this.toucher.on('swiperight', this.prev);
       }
     }
+    if ($('html').hasClass('backgroundsize')) {
+      $(window).on('resize', this.images);
+      this.images();
+    }
   }
+
+  Landing.prototype.images = function(event) {
+    var i, len, ref, results, screen;
+    ref = $('.landing__screen');
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      screen = ref[i];
+      results.push($(screen).getBackgroundImageSizeCover(this.reimg));
+    }
+    return results;
+  };
+
+  Landing.prototype.reimg = function(w, h, ml, mt, wrapper) {
+    return wrapper.find('.bgsc').css({
+      'margin-top': mt + 'px',
+      'margin-left': ml + 'px',
+      'width': w,
+      'height': h
+    });
+  };
 
   Landing.prototype.prev = function() {
     if (this.scrolling) {
